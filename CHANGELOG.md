@@ -105,20 +105,6 @@ All notable changes to the Portable Windows Dev Setup will be documented in this
 
 ## Future Enhancements
 
-### Planned for v1.1.0
-- Support for additional development tools (Python, Java, etc.)
-- Automated Visual Studio Code installation and configuration
-- Extension management for VS Code
-- Docker Desktop integration
-- WSL2 setup automation
-
-### Planned for v1.2.0
-- GUI installer interface
-- Custom tool selection during installation
-- Profile-based installations (web dev, systems programming, etc.)
-- Automatic updates for installed tools
-- Cloud backup integration for configurations
-
 ### Under Consideration
 - Support for other package managers (Chocolatey, Scoop)
 - Integration with Windows Package Manager (winget)
