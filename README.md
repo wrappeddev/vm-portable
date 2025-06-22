@@ -243,18 +243,18 @@ The installation follows this sequence with smart recovery options at each step:
     └── ❌ Failed → Retry/Re-download/Skip
     ↓
 🦀 Install Rust
-    ├── � Check if exists → Keep/Reinstall/Skip
-    ├── � Install toolchain + components
+    ├── 🔍 Check if exists → Keep/Reinstall/Skip
+    ├── 📦 Install toolchain + components
     └── ❌ Failed → Retry/Re-download/Skip
     ↓
-� Install Git
+🛺 Install Git
     ├── 🔍 Check if exists → Keep/Reinstall/Skip
     ├── 📦 Install with Windows config
     └── ❌ Failed → Retry/Re-download/Skip
     ↓
 🐙 Install GitHub CLI
     ├── 🔍 Check if exists → Keep/Reinstall/Skip
-    ├── � Install + setup auth
+    ├── 📦 Install + setup auth
     └── ❌ Failed → Retry/Re-download/Skip
     ↓
 💻 Install Visual Studio Code
