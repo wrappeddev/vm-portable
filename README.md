@@ -1,0 +1,272 @@
+# Portable Windows Dev Setup
+
+A complete portable development environment setup for Windows VMs that can be used offline (except for initial downloads and GitHub authentication).
+
+## What's Included
+
+- **Node.js** - JavaScript runtime with npm (latest LTS)
+- **Rust** - Systems programming language with Cargo (stable toolchain)
+- **Git** - Version control system with Windows optimizations
+- **GitHub CLI** - Command-line interface for GitHub with credential helper
+- **Windows Build Tools** - Required for native npm modules compilation
+- **PowerShell Configuration** - Execution policy setup for script execution
+- **GitHub Credentials** - Portable authentication setup between VMs
+
+## Folder Structure
+
+```
+portable-dev-setup/
+├── install.bat                    # Main installation script
+├── download.bat                   # Automatic installer download script
+├── verify.bat                     # Installation verification script
+├── uninstall.bat                  # Uninstall development tools
+├── README.md                      # This file
+├── DOWNLOAD-LINKS.md              # Download instructions for installers
+├── TROUBLESHOOTING.md             # Comprehensive troubleshooting guide
+├── CHANGELOG.md                   # Version history and changes
+├── .gitignore                     # Git ignore file for version control
+├── installers/                    # Downloaded installer files
+│   ├── README.md                  # Instructions for this directory
+│   ├── node-v20.x.x-x64.msi      # Node.js installer (download separately)
+│   ├── rustup-init.exe            # Rust installer (download separately)
+│   ├── Git-x.x.x-64-bit.exe      # Git installer (download separately)
+│   └── gh_x.x.x_windows_amd64.msi # GitHub CLI installer (download separately)
+├── scripts/                       # PowerShell installation scripts
+│   ├── install-nodejs.ps1         # Node.js installation
+│   ├── install-rust.ps1           # Rust installation with toolchain setup
+│   ├── install-git.ps1            # Git installation and configuration
+│   ├── install-github-cli.ps1     # GitHub CLI installation and auth
+│   ├── install-build-tools.ps1    # Windows Build Tools installation
+│   ├── download-installers.ps1    # Automatic installer download script
+│   ├── uninstall-tools.ps1        # Development tools uninstaller
+│   ├── verify-installation.ps1    # Comprehensive verification script
+│   ├── export-gh-auth.bat         # GitHub credentials export utility
+│   ├── import-gh-auth.bat         # GitHub credentials import utility
+│   └── utils.ps1                  # Shared utility functions
+├── config/                        # Configuration files and templates
+│   ├── README.md                  # Configuration documentation
+│   ├── git-config-template.txt    # Git configuration template
+│   └── gh-hosts-backup.yml       # GitHub CLI hosts backup (created during export)
+└── logs/                          # Installation and operation logs
+    ├── README.md                  # Log documentation
+    └── install_TIMESTAMP.log     # Installation logs with timestamps
+```
+
+## Quick Start
+
+### Option A: Automatic Download + Install (Recommended)
+```cmd
+# Download all installers automatically
+download.bat
+
+# Then run the installation
+install.bat
+```
+
+### Option B: Manual Download + Install
+1. **Download Required Installers** (see `DOWNLOAD-LINKS.md` for links):
+   - **Node.js LTS** from https://nodejs.org/ (MSI installer)
+   - **Rust** from https://rustup.rs/ (rustup-init.exe)
+   - **Git** from https://git-scm.com/ (64-bit installer)
+   - **GitHub CLI** from https://cli.github.com/ (MSI installer)
+
+2. **Place files** in the `installers/` folder
+
+3. **Run Installation**:
+   ```cmd
+   install.bat
+   ```
+
+### Option C: One-Step Install (with auto-download)
+```cmd
+# Run install.bat directly - it will offer to download missing files
+install.bat
+```
+
+### Final Steps (All Options)
+- Choose whether to uninstall existing tools (for clean install)
+- Provide Git username and email when prompted
+- Authenticate with GitHub CLI (or import existing credentials)
+- Wait for installation to complete
+- Verify with: `verify.bat`
+
+## 🗑️ Uninstalling
+
+### Complete Uninstall
+```cmd
+uninstall.bat
+```
+This will remove all installed development tools and clean up configurations.
+
+### Uninstall During Installation
+The install script now offers to uninstall existing tools before installing new ones for a clean setup.
+
+## Key Features
+
+- **🔧 Silent Installation**: All tools install without user interaction
+- **📥 Automatic Downloads**: Can download all installers from official sources
+- **📱 Offline Capable**: Works without internet after initial setup
+- **🔐 Portable Credentials**: Export/import GitHub authentication between VMs
+- **📝 Comprehensive Logging**: All operations logged for troubleshooting
+- **🛡️ Error Handling**: Robust error checking and recovery mechanisms
+- **✅ Verification Tools**: Built-in verification to ensure proper installation
+- **📚 Detailed Documentation**: Comprehensive guides and troubleshooting
+
+## What Gets Installed
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| Node.js | Latest LTS | JavaScript runtime and npm package manager |
+| Rust | Stable | Systems programming language with Cargo |
+| Git | Latest | Version control with Windows optimizations |
+| GitHub CLI | Latest | GitHub integration and credential helper |
+| Build Tools | Latest | Windows build tools for native npm modules |
+
+## Manual Steps Required
+
+1. **Download Installers**: Use `download.bat` for automatic download, or place files manually in `installers/` folder
+2. **Git Configuration**: Provide username and email during setup
+3. **GitHub Authentication**: Authenticate with GitHub (one-time or import existing)
+
+## Credential Portability
+
+### Export GitHub credentials from one VM:
+```cmd
+scripts\export-gh-auth.bat
+```
+
+### Import to another VM:
+```cmd
+scripts\import-gh-auth.bat
+```
+
+This allows you to maintain GitHub authentication across different VMs without re-authenticating each time.
+
+## System Requirements
+
+- **OS**: Windows 10 or later (Windows 11 recommended)
+- **Privileges**: Administrator privileges recommended for some installations
+- **Internet**: Required for initial downloads and GitHub authentication
+- **Disk Space**: Approximately 500MB for all tools
+- **Memory**: 4GB RAM minimum (8GB recommended)
+
+## Installation Process
+
+The installation follows this sequence:
+
+1. **Environment Setup**: Sets PowerShell execution policy
+2. **Node.js**: Installs JavaScript runtime and npm
+3. **Rust**: Installs Rust toolchain with Cargo and common components
+4. **Git**: Installs Git with Windows optimizations and user configuration
+5. **GitHub CLI**: Installs GitHub CLI and sets up credential helper integration
+6. **Build Tools**: Installs Windows build tools for native module compilation
+
+Each step includes verification and error handling to ensure successful installation.
+
+## Post-Installation
+
+After installation completes:
+
+1. **Restart Terminal**: Close and reopen command prompt/PowerShell to refresh PATH
+2. **Verify Installation**: Run `verify.bat` to check all tools
+3. **Test Tools**: Try basic commands:
+   ```cmd
+   node --version
+   npm --version
+   rustc --version
+   cargo --version
+   git --version
+   gh --version
+   ```
+
+## Usage Examples
+
+### Node.js Development
+```cmd
+# Create a new project
+mkdir my-project && cd my-project
+npm init -y
+npm install express
+
+# Install global tools
+npm install -g typescript nodemon
+```
+
+### Rust Development
+```cmd
+# Create a new Rust project
+cargo new hello-rust
+cd hello-rust
+cargo run
+
+# Add dependencies
+cargo add serde tokio
+```
+
+### Git Operations
+```cmd
+# Clone a repository
+git clone https://github.com/user/repo.git
+
+# Configure for a project
+git config user.name "Your Name"
+git config user.email "your.email@example.com"
+```
+
+### GitHub CLI
+```cmd
+# Create a new repository
+gh repo create my-new-repo --public
+
+# Clone your repositories
+gh repo clone user/repo
+
+# Create issues and PRs
+gh issue create --title "Bug report" --body "Description"
+gh pr create --title "Feature" --body "Description"
+```
+
+## Troubleshooting
+
+If you encounter issues:
+
+1. **Check Logs**: Review the installation log in `logs/install_TIMESTAMP.log`
+2. **Run Verification**: Use `verify.bat` to identify specific problems
+3. **Consult Documentation**: See `TROUBLESHOOTING.md` for common solutions
+4. **Manual Installation**: Install individual components manually if needed
+
+## File Organization
+
+- **Scripts**: All PowerShell scripts are in the `scripts/` folder
+- **Configuration**: Templates and backups in `config/` folder
+- **Logs**: Installation logs in `logs/` folder with timestamps
+- **Documentation**: Multiple markdown files for different aspects
+
+## Security Considerations
+
+- **Installer Verification**: Only download from official sources
+- **Credential Storage**: GitHub credentials are stored securely by GitHub CLI
+- **Execution Policy**: PowerShell execution policy is set to Bypass for current user only
+- **Admin Privileges**: Some installations may require administrator rights
+
+## Contributing
+
+This is a standalone portable setup. To customize:
+
+1. Modify scripts in the `scripts/` folder
+2. Update configuration templates in `config/`
+3. Add new tools by creating additional PowerShell scripts
+4. Follow the existing patterns for logging and error handling
+
+## License
+
+This portable dev setup is provided as-is for educational and development purposes. Individual tools have their own licenses:
+
+- Node.js: MIT License
+- Rust: MIT/Apache 2.0
+- Git: GPL v2
+- GitHub CLI: MIT License
+
+## Version
+
+Current version: 1.0.0 (see `CHANGELOG.md` for version history)

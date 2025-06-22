@@ -1,0 +1,48 @@
+# Git Configuration Template
+# This file serves as a template for Git configuration settings.
+# The actual configuration will be created during installation.
+
+[user]
+    name = Your Name Here
+    email = your.email@example.com
+
+[core]
+    autocrlf = true
+    filemode = false
+    longpaths = true
+    editor = notepad
+
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = false
+
+[credential]
+    helper = manager
+
+[credential "https://github.com"]
+    helper = !gh auth git-credential
+
+# Additional useful Git configurations:
+
+# [alias]
+#     st = status
+#     co = checkout
+#     br = branch
+#     ci = commit
+#     unstage = reset HEAD --
+#     last = log -1 HEAD
+#     visual = !gitk
+
+# [color]
+#     ui = auto
+
+# [push]
+#     default = simple
+
+# [merge]
+#     tool = vscode
+
+# [diff]
+#     tool = vscode
