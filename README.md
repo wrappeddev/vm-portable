@@ -55,6 +55,58 @@ portable-dev-setup/
     └── install_TIMESTAMP.log     # Installation logs with timestamps
 ```
 
+## 📊 Installation Workflow
+
+The installation system follows a structured workflow with multiple entry points and recovery options:
+
+```mermaid
+graph TB
+    subgraph "Main Entry Points"
+        A[download.bat<br/>📥 Download installers]
+        B[install.bat<br/>🔧 Main installation]
+        C[verify.bat<br/>✅ Verify installation]
+        D[uninstall.bat<br/>🗑️ Remove all tools]
+    end
+
+    subgraph "PowerShell Scripts"
+        E[download-installers.ps1<br/>Downloads from official sources]
+        F[install-nodejs.ps1<br/>Node.js + npm installation]
+        G[install-rust.ps1<br/>Rust + Cargo + components]
+        H[install-git.ps1<br/>Git + Windows config]
+        I[install-github-cli.ps1<br/>GitHub CLI + auth]
+        J[install-vscode.ps1<br/>VSCode + recovery options]
+        K[install-build-tools.ps1<br/>Windows Build Tools]
+        L[verify-installation.ps1<br/>Check all installations]
+        M[uninstall-tools.ps1<br/>Clean removal]
+    end
+
+    subgraph "Utility Scripts"
+        N[export-gh-auth.bat<br/>📤 Export GitHub creds]
+        O[import-gh-auth.bat<br/>📥 Import GitHub creds]
+        P[utils.ps1<br/>🛠️ Shared functions]
+    end
+
+    A --> E
+    B --> F
+    B --> G
+    B --> H
+    B --> I
+    B --> J
+    B --> K
+    B --> L
+    C --> L
+    D --> M
+
+    F -.-> P
+    G -.-> P
+    H -.-> P
+    I -.-> P
+    J -.-> P
+    K -.-> P
+    L -.-> P
+    M -.-> P
+```
+
 ## Quick Start
 
 ### Option A: Automatic Download + Install (Recommended)
@@ -185,8 +237,56 @@ When installations fail, you get multiple recovery options:
 
 ## Installation Process
 
-The installation follows this sequence:
+The installation follows this sequence with smart recovery options at each step:
 
+```mermaid
+flowchart TD
+    A[🚀 install.bat] --> B{📋 Check installers}
+    B -->|❌ Missing| C[💭 Download options]
+    B -->|✅ Found| D[🔧 Start installation]
+
+    C --> C1[📥 Auto-download]
+    C --> C2[📝 Manual download]
+    C --> C3[❌ Exit]
+
+    C1 --> E[⬇️ download-installers.ps1]
+    E --> H{✅ Success?}
+    H -->|✅| D
+    H -->|❌| I[💥 Error & exit]
+
+    D --> L[⚙️ Set PowerShell policy]
+    L --> M[📦 Node.js]
+    M --> N[🦀 Rust]
+    N --> O[🌿 Git]
+    O --> P[🐙 GitHub CLI]
+    P --> Q[💻 Visual Studio Code]
+    Q --> R[🔨 Build Tools]
+    R --> S[✅ Verify all]
+    S --> T[🎉 Complete!]
+
+    M --> M1{🔍 Exists?}
+    M1 -->|✅| M2[💭 Keep/Reinstall/Skip]
+    M1 -->|❌| M3[📦 Install]
+    M3 --> M4{✅ Success?}
+    M4 -->|❌| M5[🔄 Recovery options]
+
+    Q --> Q1{🔍 VSCode exists?}
+    Q1 -->|✅| Q2[💭 Keep/Reinstall/Skip]
+    Q1 -->|❌| Q3{📁 Installer found?}
+    Q3 -->|❌| Q4[⬇️ Auto-download]
+    Q3 -->|✅| Q5[💻 Install VSCode]
+    Q4 --> Q5
+    Q5 --> Q6{✅ Success?}
+    Q6 -->|❌| Q7[🔄 Recovery options]
+
+    style A fill:#e1f5fe
+    style T fill:#c8e6c9
+    style I fill:#ffcdd2
+    style M5 fill:#fff3e0
+    style Q7 fill:#fff3e0
+```
+
+### Installation Steps:
 1. **Environment Setup**: Sets PowerShell execution policy
 2. **Node.js**: Installs JavaScript runtime and npm
 3. **Rust**: Installs Rust toolchain with Cargo and common components
