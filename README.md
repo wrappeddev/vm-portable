@@ -69,6 +69,7 @@ install.bat
    - **Rust** from https://rustup.rs/ (rustup-init.exe)
    - **Git** from https://git-scm.com/ (64-bit installer)
    - **GitHub CLI** from https://cli.github.com/ (MSI installer)
+   - **Visual Studio Code** from https://code.visualstudio.com/ (User installer)
 
 2. **Place files** in the `installers/` folder
 
@@ -120,6 +121,7 @@ The install script now offers to uninstall existing tools before installing new 
 | Rust | Stable | Systems programming language with Cargo |
 | Git | Latest | Version control with Windows optimizations |
 | GitHub CLI | Latest | GitHub integration and credential helper |
+| Visual Studio Code | Latest | Code editor with extensions support |
 | Build Tools | Latest | Windows build tools for native npm modules |
 
 ## Manual Steps Required
@@ -159,7 +161,8 @@ The installation follows this sequence:
 3. **Rust**: Installs Rust toolchain with Cargo and common components
 4. **Git**: Installs Git with Windows optimizations and user configuration
 5. **GitHub CLI**: Installs GitHub CLI and sets up credential helper integration
-6. **Build Tools**: Installs Windows build tools for native module compilation
+6. **Visual Studio Code**: Installs code editor with PATH integration
+7. **Build Tools**: Installs Windows build tools for native module compilation
 
 Each step includes verification and error handling to ensure successful installation.
 
@@ -177,6 +180,7 @@ After installation completes:
    cargo --version
    git --version
    gh --version
+   code --version
    ```
 
 ## Usage Examples
@@ -269,4 +273,4 @@ This portable dev setup is provided as-is for educational and development purpos
 
 ## Version
 
-Current version: 1.2.0 (see `CHANGELOG.md` for version history)
+Current version: 1.3.0 (see `CHANGELOG.md` for version history)

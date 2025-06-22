@@ -2,6 +2,23 @@
 
 All notable changes to the Portable Windows Dev Setup will be documented in this file.
 
+## [1.3.0] - 2025-06-22
+
+### Added
+- **Visual Studio Code Integration**: New `install-vscode.ps1` script with automatic download and installation
+- **VSCode Recovery Options**: Multiple recovery options for failed installations including:
+  - Delete current installer and re-download
+  - Remove existing VSCode installation and reinstall
+  - Skip VSCode installation entirely
+- **Automatic VSCode Download**: Script can download VSCode installer if not found in installers folder
+- **Enhanced Verification**: Added VSCode verification to the verification script
+
+### Enhanced
+- Updated all documentation to include Visual Studio Code
+- Added VSCode to download scripts and batch files
+- Improved installer download functionality with VSCode support
+- Updated README.md with VSCode installation information
+
 ## [1.2.0] - 2024-12-22
 
 ### Added
@@ -71,6 +88,7 @@ All notable changes to the Portable Windows Dev Setup will be documented in this
 - `scripts/install-rust.ps1` - Rust installation
 - `scripts/install-git.ps1` - Git installation and configuration
 - `scripts/install-github-cli.ps1` - GitHub CLI installation and auth
+- `scripts/install-vscode.ps1` - Visual Studio Code installation
 - `scripts/install-build-tools.ps1` - Windows Build Tools installation
 - `scripts/download-installers.ps1` - Automatic installer download
 - `scripts/uninstall-tools.ps1` - Development tools uninstaller
@@ -105,14 +123,13 @@ All notable changes to the Portable Windows Dev Setup will be documented in this
 
 ## Future Enhancements
 
-### Planned for v1.1.0
+### Planned for v1.4.0
 - Support for additional development tools (Python, Java, etc.)
-- Automated Visual Studio Code installation and configuration
 - Extension management for VS Code
 - Docker Desktop integration
 - WSL2 setup automation
 
-### Planned for v1.2.0
+### Planned for v1.5.0
 - GUI installer interface
 - Custom tool selection during installation
 - Profile-based installations (web dev, systems programming, etc.)

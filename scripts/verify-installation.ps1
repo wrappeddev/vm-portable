@@ -92,6 +92,7 @@ $Results += Test-Tool "Rust Compiler" "rustc" "--version" "rustc ([\d\.]+)"
 $Results += Test-Tool "Cargo" "cargo" "--version" "cargo ([\d\.]+)"
 $Results += Test-Tool "Git" "git" "--version" "git version ([\d\.]+)"
 $Results += Test-Tool "GitHub CLI" "gh" "--version" "gh version ([\d\.]+)"
+$Results += Test-Tool "Visual Studio Code" "code" "--version" "([\d\.]+)"
 
 Write-Host ""
 Write-Host "Checking Additional Tools:"

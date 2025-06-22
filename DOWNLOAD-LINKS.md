@@ -41,12 +41,18 @@ If you prefer to download manually or the automatic download fails, download the
 - **Size**: ~15 MB
 - **Notes**: Download the Windows MSI installer
 
+### 5. Visual Studio Code
+- **Download**: [Visual Studio Code](https://code.visualstudio.com/)
+- **File**: `VSCodeUserSetup-x64-x.x.x.exe` (e.g., `VSCodeUserSetup-x64-1.96.2.exe`)
+- **Size**: ~100 MB
+- **Notes**: Download the User Installer for x64 (not System Installer)
+
 ## Download Instructions
 
 1. Create the `installers/` folder in your portable-dev-setup directory
 2. Download each file using the links above
 3. Place all downloaded files in the `installers/` folder
-4. Verify you have all four files before running `install.bat`
+4. Verify you have all five files before running `install.bat`
 
 ## Expected Folder Structure
 
@@ -56,7 +62,8 @@ portable-dev-setup/
 │   ├── node-v20.x.x-x64.msi
 │   ├── rustup-init.exe
 │   ├── Git-x.x.x-64-bit.exe
-│   └── gh_x.x.x_windows_amd64.msi
+│   ├── gh_x.x.x_windows_amd64.msi
+│   └── VSCodeUserSetup-x64-x.x.x.exe
 ├── scripts/
 ├── config/
 └── install.bat
@@ -89,6 +96,9 @@ Invoke-WebRequest -Uri "https://win.rustup.rs/x86_64" -OutFile "installers/rustu
 
 # Download GitHub CLI (check cli.github.com for latest URL)
 # Invoke-WebRequest -Uri "https://github.com/cli/cli/releases/download/v2.x.x/gh_2.x.x_windows_amd64.msi" -OutFile "installers/gh_2.x.x_windows_amd64.msi"
+
+# Download Visual Studio Code (automatically gets latest version)
+# Invoke-WebRequest -Uri "https://update.code.visualstudio.com/latest/win32-x64-user/stable" -OutFile "installers/VSCodeUserSetup-x64-latest.exe"
 ```
 
 ## Security Notes

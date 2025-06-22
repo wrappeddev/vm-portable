@@ -23,8 +23,9 @@ echo - Node.js LTS (MSI installer)
 echo - Rust (rustup-init.exe)
 echo - Git for Windows (64-bit installer)
 echo - GitHub CLI (MSI installer)
+echo - Visual Studio Code (User installer)
 echo.
-echo Total download size: ~100 MB
+echo Total download size: ~200 MB
 echo.
 
 REM Create directories if they don't exist

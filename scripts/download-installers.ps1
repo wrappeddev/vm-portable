@@ -54,6 +54,14 @@ $Installers = @{
         Size = "~15 MB"
         Required = $true
     }
+    "VSCode" = @{
+        Name = "Visual Studio Code"
+        Pattern = "VSCodeUserSetup-*.exe"
+        FileName = "VSCodeUserSetup-x64-1.96.2.exe"
+        Url = "https://update.code.visualstudio.com/1.96.2/win32-x64-user/stable"
+        Size = "~100 MB"
+        Required = $false
+    }
 }
 
 try {

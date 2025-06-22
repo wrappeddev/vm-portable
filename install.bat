@@ -44,6 +44,7 @@ echo - Node.js (with npm)
 echo - Rust (with Cargo)
 echo - Git
 echo - GitHub CLI
+echo - Visual Studio Code
 echo - Windows Build Tools
 echo.
 echo Log file: %LOG_FILE%
@@ -143,6 +144,13 @@ if not exist "%INSTALLERS_DIR%\gh_*_windows_amd64.msi" (
     echo   - GitHub CLI MSI: NOT FOUND
 ) else (
     echo   - GitHub CLI MSI: FOUND
+)
+
+echo Checking Visual Studio Code installer...
+if not exist "%INSTALLERS_DIR%\VSCodeUserSetup-*.exe" (
+    echo   - VSCode installer: NOT FOUND ^(will download if needed^)
+) else (
+    echo   - VSCode installer: FOUND
 )
 
 echo.
@@ -283,6 +291,20 @@ if %errorLevel% neq 0 (
 echo [OK] GitHub CLI installation completed.
 echo.
 
+REM Install Visual Studio Code
+echo ============================================================================
+echo Installing Visual Studio Code...
+echo ============================================================================
+powershell -ExecutionPolicy Bypass -File "%SCRIPTS_DIR%\install-vscode.ps1" -LogFile "%LOG_FILE%" -InstallersDir "%INSTALLERS_DIR%"
+if %errorLevel% neq 0 (
+    echo ERROR: Visual Studio Code installation failed. Check log file for details.
+    echo Log file: %LOG_FILE%
+    pause
+    exit /b 1
+)
+echo [OK] Visual Studio Code installation completed.
+echo.
+
 REM Install Windows Build Tools
 echo ============================================================================
 echo Installing Windows Build Tools...
@@ -323,6 +345,7 @@ echo    - rustc --version   (Rust compiler)
 echo    - cargo --version   (Rust package manager)
 echo    - git --version     (Git version control)
 echo    - gh --version      (GitHub CLI)
+echo    - code --version    (Visual Studio Code)
 echo.
 echo Log file saved to: %LOG_FILE%
 echo.
