@@ -1,6 +1,6 @@
 # Portable Windows Dev Setup
 
-A complete portable development environment setup for Windows VMs that can be used offline (except for initial downloads and GitHub authentication).
+A complete portable development environment setup for Windows VMs that can be used offline (except for initial downloads and GitHub authentication). Features automatic downloads, smart recovery options, and comprehensive error handling.
 
 ## What's Included
 
@@ -8,6 +8,7 @@ A complete portable development environment setup for Windows VMs that can be us
 - **Rust** - Systems programming language with Cargo (stable toolchain)
 - **Git** - Version control system with Windows optimizations
 - **GitHub CLI** - Command-line interface for GitHub with credential helper
+- **Visual Studio Code** - Modern code editor with extensions support
 - **Windows Build Tools** - Required for native npm modules compilation
 - **PowerShell Configuration** - Execution policy setup for script execution
 - **GitHub Credentials** - Portable authentication setup between VMs
@@ -30,12 +31,14 @@ portable-dev-setup/
 │   ├── node-v20.x.x-x64.msi      # Node.js installer (download separately)
 │   ├── rustup-init.exe            # Rust installer (download separately)
 │   ├── Git-x.x.x-64-bit.exe      # Git installer (download separately)
-│   └── gh_x.x.x_windows_amd64.msi # GitHub CLI installer (download separately)
+│   ├── gh_x.x.x_windows_amd64.msi # GitHub CLI installer (download separately)
+│   └── VSCodeUserSetup-x64-x.x.x.exe # Visual Studio Code installer (download separately)
 ├── scripts/                       # PowerShell installation scripts
 │   ├── install-nodejs.ps1         # Node.js installation
 │   ├── install-rust.ps1           # Rust installation with toolchain setup
 │   ├── install-git.ps1            # Git installation and configuration
 │   ├── install-github-cli.ps1     # GitHub CLI installation and auth
+│   ├── install-vscode.ps1         # Visual Studio Code installation
 │   ├── install-build-tools.ps1    # Windows Build Tools installation
 │   ├── download-installers.ps1    # Automatic installer download script
 │   ├── uninstall-tools.ps1        # Development tools uninstaller
@@ -110,6 +113,8 @@ The install script now offers to uninstall existing tools before installing new 
 - **🔐 Portable Credentials**: Export/import GitHub authentication between VMs
 - **📝 Comprehensive Logging**: All operations logged for troubleshooting
 - **🛡️ Error Handling**: Robust error checking and recovery mechanisms
+- **🔄 Smart Recovery**: Multiple recovery options when installations fail
+- **💻 Existing Installation Detection**: Smart handling of already installed tools
 - **✅ Verification Tools**: Built-in verification to ensure proper installation
 - **📚 Detailed Documentation**: Comprehensive guides and troubleshooting
 
@@ -144,12 +149,38 @@ scripts\import-gh-auth.bat
 
 This allows you to maintain GitHub authentication across different VMs without re-authenticating each time.
 
+## 🔄 Smart Installation & Recovery Features
+
+### Automatic Download
+- **Missing Installers**: If any installer is missing, the script offers to download it automatically
+- **VSCode Auto-Download**: Visual Studio Code installer is downloaded on-demand if not found
+- **Official Sources**: All downloads come from official vendor websites
+
+### Recovery Options
+When installations fail, you get multiple recovery options:
+
+#### For All Tools:
+- **Retry Installation**: Attempt installation again with current installer
+- **Re-download**: Delete current installer and download fresh copy
+- **Skip Installation**: Continue with other tools if one fails
+
+#### For Existing Installations:
+- **Keep Existing**: Preserve current installation (recommended)
+- **Reinstall**: Remove existing version and install fresh
+- **Upgrade**: Update to newer version when available
+
+### Smart Detection
+- **Existing Tools**: Automatically detects already installed development tools
+- **Version Checking**: Shows current versions of installed tools
+- **Conflict Resolution**: Handles version conflicts and installation issues
+- **Path Integration**: Ensures all tools are properly added to system PATH
+
 ## System Requirements
 
 - **OS**: Windows 10 or later (Windows 11 recommended)
 - **Privileges**: Administrator privileges recommended for some installations
 - **Internet**: Required for initial downloads and GitHub authentication
-- **Disk Space**: Approximately 500MB for all tools
+- **Disk Space**: Approximately 700MB for all tools (including VSCode)
 - **Memory**: 4GB RAM minimum (8GB recommended)
 
 ## Installation Process
@@ -230,14 +261,38 @@ gh issue create --title "Bug report" --body "Description"
 gh pr create --title "Feature" --body "Description"
 ```
 
+### Visual Studio Code
+```cmd
+# Open current directory in VSCode
+code .
+
+# Open a specific file
+code myfile.js
+
+# Install extensions
+code --install-extension ms-vscode.vscode-typescript-next
+code --install-extension rust-lang.rust-analyzer
+
+# Open with specific settings
+code --new-window --goto myfile.js:10:5
+```
+
 ## Troubleshooting
 
 If you encounter issues:
 
 1. **Check Logs**: Review the installation log in `logs/install_TIMESTAMP.log`
 2. **Run Verification**: Use `verify.bat` to identify specific problems
-3. **Consult Documentation**: See `TROUBLESHOOTING.md` for common solutions
-4. **Manual Installation**: Install individual components manually if needed
+3. **Use Recovery Options**: The installer provides multiple recovery options for failed installations
+4. **Consult Documentation**: See `TROUBLESHOOTING.md` for common solutions
+5. **Manual Installation**: Install individual components manually if needed
+
+### Common Recovery Scenarios
+
+- **Download Failed**: Script will offer to retry download or skip the tool
+- **Installation Failed**: Choose to retry, re-download installer, or skip
+- **Existing Installation**: Keep current version, reinstall, or upgrade
+- **Missing Dependencies**: Script will guide you through resolution steps
 
 ## File Organization
 
@@ -270,6 +325,7 @@ This portable dev setup is provided as-is for educational and development purpos
 - Rust: MIT/Apache 2.0
 - Git: GPL v2
 - GitHub CLI: MIT License
+- Visual Studio Code: Microsoft Software License
 
 ## Version
 
