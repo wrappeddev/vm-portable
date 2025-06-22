@@ -269,4 +269,4 @@ This portable dev setup is provided as-is for educational and development purpos
 
 ## Version
 
-Current version: 1.0.0 (see `CHANGELOG.md` for version history)
+Current version: 1.2.0 (see `CHANGELOG.md` for version history)
