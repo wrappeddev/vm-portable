@@ -1,5 +1,0 @@
-﻿Git Configuration
-================
-User Name: Wrapped
-User Email: wrappeddeveloper@gmail.com
-Configured on: 06/21/2025 23:10:51
