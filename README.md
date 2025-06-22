@@ -59,52 +59,40 @@ portable-dev-setup/
 
 The installation system follows a structured workflow with multiple entry points and recovery options:
 
-```mermaid
-graph TB
-    subgraph "Main Entry Points"
-        A[download.bat<br/>📥 Download installers]
-        B[install.bat<br/>🔧 Main installation]
-        C[verify.bat<br/>✅ Verify installation]
-        D[uninstall.bat<br/>🗑️ Remove all tools]
-    end
+### Main Entry Points
+```
+📥 download.bat     → Downloads all installers automatically
+🔧 install.bat      → Main installation orchestrator
+✅ verify.bat       → Verifies all installations
+🗑️ uninstall.bat    → Removes all installed tools
+```
 
-    subgraph "PowerShell Scripts"
-        E[download-installers.ps1<br/>Downloads from official sources]
-        F[install-nodejs.ps1<br/>Node.js + npm installation]
-        G[install-rust.ps1<br/>Rust + Cargo + components]
-        H[install-git.ps1<br/>Git + Windows config]
-        I[install-github-cli.ps1<br/>GitHub CLI + auth]
-        J[install-vscode.ps1<br/>VSCode + recovery options]
-        K[install-build-tools.ps1<br/>Windows Build Tools]
-        L[verify-installation.ps1<br/>Check all installations]
-        M[uninstall-tools.ps1<br/>Clean removal]
-    end
+### Installation Flow
+```
+install.bat
+    ├── Check for installer files
+    ├── Set PowerShell execution policy
+    ├── install-nodejs.ps1      (Node.js + npm)
+    ├── install-rust.ps1        (Rust + Cargo + components)
+    ├── install-git.ps1         (Git + Windows config)
+    ├── install-github-cli.ps1  (GitHub CLI + auth)
+    ├── install-vscode.ps1      (VSCode + recovery options)
+    ├── install-build-tools.ps1 (Windows Build Tools)
+    └── verify-installation.ps1 (Final verification)
+```
 
-    subgraph "Utility Scripts"
-        N[export-gh-auth.bat<br/>📤 Export GitHub creds]
-        O[import-gh-auth.bat<br/>📥 Import GitHub creds]
-        P[utils.ps1<br/>🛠️ Shared functions]
-    end
+### Recovery & Utilities
+```
+🔄 Each installer script offers:
+   ├── Detect existing installations
+   ├── Keep/Reinstall/Skip options
+   ├── Auto-download missing installers
+   ├── Retry/Re-download on failure
+   └── Comprehensive error logging
 
-    A --> E
-    B --> F
-    B --> G
-    B --> H
-    B --> I
-    B --> J
-    B --> K
-    B --> L
-    C --> L
-    D --> M
-
-    F -.-> P
-    G -.-> P
-    H -.-> P
-    I -.-> P
-    J -.-> P
-    K -.-> P
-    L -.-> P
-    M -.-> P
+📤 export-gh-auth.bat → Export GitHub credentials
+📥 import-gh-auth.bat → Import GitHub credentials
+🛠️ utils.ps1          → Shared utility functions
 ```
 
 ## Quick Start
@@ -239,63 +227,59 @@ When installations fail, you get multiple recovery options:
 
 The installation follows this sequence with smart recovery options at each step:
 
-```mermaid
-flowchart TD
-    A[🚀 install.bat] --> B{📋 Check installers}
-    B -->|❌ Missing| C[💭 Download options]
-    B -->|✅ Found| D[🔧 Start installation]
-
-    C --> C1[📥 Auto-download]
-    C --> C2[📝 Manual download]
-    C --> C3[❌ Exit]
-
-    C1 --> E[⬇️ download-installers.ps1]
-    E --> H{✅ Success?}
-    H -->|✅| D
-    H -->|❌| I[💥 Error & exit]
-
-    D --> L[⚙️ Set PowerShell policy]
-    L --> M[📦 Node.js]
-    M --> N[🦀 Rust]
-    N --> O[🌿 Git]
-    O --> P[🐙 GitHub CLI]
-    P --> Q[💻 Visual Studio Code]
-    Q --> R[🔨 Build Tools]
-    R --> S[✅ Verify all]
-    S --> T[🎉 Complete!]
-
-    M --> M1{🔍 Exists?}
-    M1 -->|✅| M2[💭 Keep/Reinstall/Skip]
-    M1 -->|❌| M3[📦 Install]
-    M3 --> M4{✅ Success?}
-    M4 -->|❌| M5[🔄 Recovery options]
-
-    Q --> Q1{🔍 VSCode exists?}
-    Q1 -->|✅| Q2[💭 Keep/Reinstall/Skip]
-    Q1 -->|❌| Q3{📁 Installer found?}
-    Q3 -->|❌| Q4[⬇️ Auto-download]
-    Q3 -->|✅| Q5[💻 Install VSCode]
-    Q4 --> Q5
-    Q5 --> Q6{✅ Success?}
-    Q6 -->|❌| Q7[🔄 Recovery options]
-
-    style A fill:#e1f5fe
-    style T fill:#c8e6c9
-    style I fill:#ffcdd2
-    style M5 fill:#fff3e0
-    style Q7 fill:#fff3e0
+### Step-by-Step Process
+```
+🚀 install.bat starts
+    ↓
+📋 Check for installer files
+    ├── ❌ Missing files → Offer auto-download or manual download
+    └── ✅ All found → Continue
+    ↓
+⚙️ Set PowerShell execution policy
+    ↓
+📦 Install Node.js
+    ├── 🔍 Check if exists → Keep/Reinstall/Skip
+    ├── 📦 Install silently
+    └── ❌ Failed → Retry/Re-download/Skip
+    ↓
+🦀 Install Rust
+    ├── � Check if exists → Keep/Reinstall/Skip
+    ├── � Install toolchain + components
+    └── ❌ Failed → Retry/Re-download/Skip
+    ↓
+� Install Git
+    ├── 🔍 Check if exists → Keep/Reinstall/Skip
+    ├── 📦 Install with Windows config
+    └── ❌ Failed → Retry/Re-download/Skip
+    ↓
+🐙 Install GitHub CLI
+    ├── 🔍 Check if exists → Keep/Reinstall/Skip
+    ├── � Install + setup auth
+    └── ❌ Failed → Retry/Re-download/Skip
+    ↓
+💻 Install Visual Studio Code
+    ├── 🔍 Check if exists → Keep/Reinstall/Skip
+    ├── 📁 No installer → Auto-download from Microsoft
+    ├── 📦 Install with PATH integration
+    └── ❌ Failed → Retry/Re-download/Skip
+    ↓
+🔨 Install Windows Build Tools
+    ├── 📦 Install via npm
+    └── ❌ Failed → Retry/Skip
+    ↓
+✅ Verify all installations
+    ↓
+🎉 Installation Complete!
 ```
 
-### Installation Steps:
-1. **Environment Setup**: Sets PowerShell execution policy
-2. **Node.js**: Installs JavaScript runtime and npm
-3. **Rust**: Installs Rust toolchain with Cargo and common components
-4. **Git**: Installs Git with Windows optimizations and user configuration
-5. **GitHub CLI**: Installs GitHub CLI and sets up credential helper integration
-6. **Visual Studio Code**: Installs code editor with PATH integration
-7. **Build Tools**: Installs Windows build tools for native module compilation
+### Recovery Options Available
+- **🔄 Retry**: Try installation again with current installer
+- **📥 Re-download**: Delete current installer and download fresh copy
+- **⏭️ Skip**: Continue with other tools if one fails
+- **🔧 Keep Existing**: Preserve current installation when detected
+- **🔄 Reinstall**: Remove existing and install fresh version
 
-Each step includes verification and error handling to ensure successful installation.
+Each step includes comprehensive logging and error handling to ensure successful installation.
 
 ## Post-Installation
 
